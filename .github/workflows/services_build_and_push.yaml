@@ -8,7 +8,7 @@ jobs:
   determine_changed_services:
     runs-on: ubuntu-latest
     outputs:
-      changed_services: ${{ steps.find-services.outputs.services }}
+      changed_services: ${{ steps.find-services.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -24,7 +24,7 @@ jobs:
           ./pants --version
       - id: find-services
         run: |
-          echo "::set-output name=services::\"include\":[\"service_one\", \"service_two\"]"
+          echo "::set-output name=matrix::{\"node\":[10, 12, 14]}"
 
   build_changed_services:
     needs: determine_changed_services

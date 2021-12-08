@@ -146,16 +146,16 @@ function trigger_build {
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     BODY="$(cat <<-EOM
     {
-        "event_type": "build-${PROJECT_NAME}",
-        "client_payload": {
-            "job": "${PROJECT_NAME}"
+#        "event_type": "build-${PROJECT_NAME}",
+        "inputs": {
+            "service_name": "${PROJECT_NAME}"
         }
     }
 EOM
     )"
     post 'actions/workflows/services.yaml/dispatches' "${BODY}"
     for (( WAIT_SECONDS=0; WAIT_SECONDS<=5; WAIT_SECONDS+=1 )); do
-        WFS=$(get 'actions/runs?event=repository_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'") ]')
+        WFS=$(get 'actions/runs?event=workflow_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'") ]')
         ID='null'
         for JOBS_URL in $(echo "$WFS" | jq -r 'map(.jobs_url) | .[]'); do
             JOBS_URL=${JOBS_URL/$GITHUB_URL/}

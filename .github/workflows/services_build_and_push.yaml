@@ -24,7 +24,7 @@ jobs:
           ./pants --version
       - id: find-services
         run: |
-          echo "::set-output name=services::[\"service_one\", \"service_two\"]"
+          echo "::set-output name=services::{\"include\":[\"service_one\", \"service_two\"]}"
 
   build_changed_services:
     needs: determine_changed_services

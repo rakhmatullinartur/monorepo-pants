@@ -33,5 +33,5 @@ jobs:
 #      matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
     steps:
       - name: build
-        run: echo ${{ needs.determine_changed_services.output.changed_services }}
+        run: echo ${{ needs.determine_changed_services.outputs.changed_services }}
 

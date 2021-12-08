@@ -24,7 +24,7 @@ jobs:
           ./pants --version
       - id: find-services
         run: |
-          echo "::set-output name=matrix::{\"node\":[10, 12, 14]}"
+          echo "::set-output name=matrix::{\"service\":[service_one, service_two]}"
 
   build_changed_services:
     needs: determine_changed_services
@@ -33,5 +33,5 @@ jobs:
       matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
     steps:
       - name: build
-        run: echo ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
+        run: echo ${{ matrix.service }}
 

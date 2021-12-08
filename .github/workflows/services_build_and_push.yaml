@@ -1,0 +1,37 @@
+name: Build and Deploy services
+
+on:
+  push:
+    branches: [test_matrix]
+
+jobs:
+  determine_changed_services:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_services: ${{ steps.find-services.outputs.services }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            ~/.cache/pants/setup
+            ~/.cache/pants/lmdb_store
+            ~/.cache/pants/named_caches
+          key: ${{ runner.os }}-
+      - name: Bootstrap Pants
+        run: |
+          ./pants --version
+      - id: find-services
+        run: |
+          echo "::set-output name=services::[service_one]"
+
+  build_changed_services:
+    needs: determine_changed_services
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ needs.determine_changed_services.outputs.changed_services }}
+    steps:
+      - name: build
+        run: echo "Builded"
+

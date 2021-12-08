@@ -26,6 +26,6 @@ jobs:
     - name: Bootstrap Pants
       run: |
         ./pants --version
-    - name: Check BUILD files
+    - name: Package / Run
       run: |
-        ./pants tailor --check update-build-files --check
+        ./pants run ${{ github.event.input.service_name }}

@@ -13,7 +13,6 @@ set -e
 # Find script directory (no support for symlinks)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo $DIR
-echo $GITHUB_TOKEN
 # Configuration with default values
 : "${CI_TOOL:=github}"
 : "${CI_PLUGIN:=$DIR/../plugins/${CI_TOOL}.sh}"
@@ -45,7 +44,7 @@ echo $GITHUB_TOKEN
 
 # Collect all modified projects
 #PROJECTS_TO_BUILD=$($DIR/list-projects-to-build.sh $COMMIT_RANGE)
-PROJECTS_TO_BUILD=$(./pants --changed-since=origin/dev --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
+PROJECTS_TO_BUILD=$(./pants --changed-since=origin/$GITHUB_REF --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
 
 # If nothing to build inform and exit
 if [[ -z "$PROJECTS_TO_BUILD" ]]; then

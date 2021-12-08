@@ -33,6 +33,7 @@ fi
 PROJECTS=()
 for PROJECT in $@; do
     echo "Triggering build for project '$PROJECT'"
+    PROJECT_NAME=$PROJECT
 #    PROJECT_NAME=$(basename $PROJECT)
     BUILD_NUM=$(${CI_PLUGIN} build $PROJECT_NAME)
     echo "build num '$BUILD_NUM'"

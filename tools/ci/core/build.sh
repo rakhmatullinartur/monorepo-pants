@@ -28,19 +28,19 @@ echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 #echo "Commit range: $COMMIT_RANGE"
 
 # Ensure we have all changes from last successful build
-#if [[ -f $(git rev-parse --git-dir)/shallow ]]; then
-#    if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
-#        git fetch --unshallow
-#    else
-#        DEPTH=1
-#        until git show ${LAST_SUCCESSFUL_COMMIT} > /dev/null 2>&1
-#        do
-#            DEPTH=$((DEPTH+5))
-#            echo "Last commit not fetched yet. Fetching depth $DEPTH."
-#            git fetch --depth=$DEPTH
-#        done
-#    fi
-#fi
+if [[ -f $(git rev-parse --git-dir)/shallow ]]; then
+    if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
+        git fetch --unshallow
+    else
+        DEPTH=1
+        until git show ${LAST_SUCCESSFUL_COMMIT} > /dev/null 2>&1
+        do
+            DEPTH=$((DEPTH+5))
+            echo "Last commit not fetched yet. Fetching depth $DEPTH."
+            git fetch --depth=$DEPTH
+        done
+    fi
+fi
 
 # Collect all modified projects
 #PROJECTS_TO_BUILD=$($DIR/list-projects-to-build.sh $COMMIT_RANGE)

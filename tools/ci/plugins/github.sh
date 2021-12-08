@@ -213,7 +213,7 @@ function get_build_status {
 ##
 function kill_build {
     local BUILD_ID=$1
-    require_not_null "Build id not speficied" ${BUILD_ID}
+    require_not_null "Build id not specified" ${BUILD_ID}
     STATUS_RESPONSE=$(post actions/runs/${BUILD_ID}/cancel)
 }
 

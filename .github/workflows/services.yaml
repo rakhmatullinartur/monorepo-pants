@@ -11,7 +11,7 @@ on:
 
 jobs:
   service_one:
-    name: service_one
+    name: ${{ github.event.inputs.service_name }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

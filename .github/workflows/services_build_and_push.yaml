@@ -29,8 +29,8 @@ jobs:
   build_changed_services:
     needs: determine_changed_services
     runs-on: ubuntu-latest
-#    strategy:
-#      matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
+    strategy:
+      matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
     steps:
       - name: build
         run: echo ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}

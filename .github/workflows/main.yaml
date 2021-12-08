@@ -32,3 +32,9 @@ jobs:
           CI_TOOL: github
           GITHUB_TOKEN: ${{ secrets.token }}
         run: ./tools/ci/core/build.sh
+      - name: Upload pants log
+        uses: actions/upload-artifact@v2
+        with:
+          name: pants-log
+          path: .pants.d/pants.log
+        if: always()

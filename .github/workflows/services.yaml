@@ -28,4 +28,4 @@ jobs:
         ./pants --version
     - name: Package / Run
       run: |
-        ./pants run ${{ github.event.input.service_name }}
+        ./pants run ${{ github.event.inputs.service_name }}

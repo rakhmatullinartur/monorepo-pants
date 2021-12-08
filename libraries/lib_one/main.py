@@ -1,5 +1,5 @@
 def main():
-    print("hello lib one and two")
+    print("hello lib one")
 
 
 if __name__ == "__main__":

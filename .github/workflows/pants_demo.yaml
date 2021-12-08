@@ -1,0 +1,64 @@
+name: Pants demo
+
+on:
+  push:
+    branches: [feature/mono]
+
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+  build:
+    name: Perform CI Checks
+    env:
+      PANTS_CONFIG_FILES: pants.ci.toml
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.9]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/cache@v2
+      id: cache
+      with:
+        path: |
+          ~/.cache/pants/setup
+          ~/.cache/pants/lmdb_store
+          ~/.cache/pants/named_caches
+        key: ${{ runner.os }}-
+    - name: Setup Python ${{ matrix.python-verison }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Bootstrap Pants
+      run: |
+        ./pants --version
+    - name: Check BUILD files
+      run: ./pants tailor --check update-build-files --check
+    - name: Lint and typecheck
+      run: |
+        ./pants lint typecheck ::
+    - name: Test
+      run: |
+        ./pants test ::
+    - name: Package / Run
+      run: |
+        ./pants package ::
+        ./pants run services/service_one:main
+    - name: Upload pants log
+      uses: actions/upload-artifact@v2
+      with:
+        name: pants-log
+        path: .pants.d/pants.log
+      if: always()

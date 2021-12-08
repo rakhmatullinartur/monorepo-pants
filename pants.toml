@@ -1,0 +1,58 @@
+[GLOBAL]
+pants_version = "2.8.1rc1"
+
+backend_packages = [
+  "pants.backend.shell",
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+  "pants.backend.experimental.docker.lint.hadolint",
+
+]
+
+[tailor]
+ignore_paths = [
+    'admin/**',
+    'airflow-dags/**',
+    'configs_optimizer/**',
+    'CSVs/**',
+    'data/**',
+    'docs/**',
+    'emergency_scripts/**',
+    'executables/**',
+    'instrument_history/**',
+    'xnt/**',
+    'utils/**',
+    'trader/**',
+    'tests/**',
+    'telegram-strategy-event-consumer/**',
+    'strategies/**',
+    'k8s-deployment-service/**',
+]
+ignore_adding_targets = [
+    '//:bayesian_optimizer',
+    '//:get_stat',
+    '//:gridsearch_optimizer',
+    '//:nograd_optimizer',
+    '//:tests',
+    '//:root',
+    '//:ticks_test',
+]
+
+[anonymous-telemetry]
+enabled = false
+
+[source]
+root_patterns = [
+  '/',
+  '/libraries',
+  '/services',
+]
+
+[python]
+# The default interpreter compatibility for code in this repo. Individual targets can override
+#  this with the `interpreter_constraints` field. See
+#  https://www.pantsbuild.org/docs/python-interpreter-compatibility.
+interpreter_constraints = [">=3.9"]
+# interpreter_constraints=["CPython>=3.6"]
+# Use a constraints file. See https://www.pantsbuild.org/docs/python-third-party-dependencies.
+# requirement_constraints = "constraints.txt"

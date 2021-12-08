@@ -159,8 +159,6 @@ EOM
         ID='null'
         for JOBS_URL in $(echo "$WFS" | jq -r 'map(.jobs_url) | .[]'); do
             JOBS_URL=${JOBS_URL/$GITHUB_URL/}
-            S=$(get ${JOBS_URL:1})
-            echo $S
             ID=$(get ${JOBS_URL:1} | jq '[ .jobs[] | select(.name == "'${PROJECT_NAME}'") ] | map(.run_id) | .[0]')
             if [[ ${ID} != 'null' ]]; then
                 break

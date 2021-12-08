@@ -1,6 +1,13 @@
 name: services
 
-on: repository_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      service_name:
+        description: 'Service to run workflow for'
+        required: true
+        default: 'service_one'
+
 
 jobs:
   service_one:

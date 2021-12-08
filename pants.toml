@@ -5,6 +5,7 @@ backend_packages = [
   "pants.backend.shell",
   "pants.backend.python",
   "pants.backend.python.lint.black",
+  "pants.backend.experimental.docker",
   "pants.backend.experimental.docker.lint.hadolint",
 
 ]
@@ -27,6 +28,7 @@ ignore_paths = [
     'telegram-strategy-event-consumer/**',
     'strategies/**',
     'k8s-deployment-service/**',
+    'tools/**',
 ]
 ignore_adding_targets = [
     '//:bayesian_optimizer',

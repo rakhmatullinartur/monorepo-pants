@@ -153,7 +153,7 @@ function trigger_build {
     }
 EOM
     )"
-    post dispatches "${BODY}"
+    post 'actions/workflows/services.yaml/dispatches' "${BODY}"
     for (( WAIT_SECONDS=0; WAIT_SECONDS<=5; WAIT_SECONDS+=1 )); do
         WFS=$(get 'actions/runs?event=repository_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'") ]')
         ID='null'

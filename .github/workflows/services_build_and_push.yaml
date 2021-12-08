@@ -24,7 +24,7 @@ jobs:
           ./pants --version
       - id: find-services
         run: |
-          echo "::set-output name=matrix::{\"service\":[1, 2]}"
+          echo "::set-output name=matrix::{\"service\":[\"service_one\", \"service_two\"]}"
 
   build_changed_services:
     needs: determine_changed_services

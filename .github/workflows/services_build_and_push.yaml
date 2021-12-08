@@ -35,3 +35,10 @@ jobs:
       - name: build
         run: echo ${{ matrix.service }}
 
+  deploy:
+    needs: build_changed_services
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy
+        run: echo deployed!
+

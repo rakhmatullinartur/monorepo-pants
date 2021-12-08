@@ -143,6 +143,7 @@ function trigger_build {
     local PROJECT_NAME=$1
     require_not_null "Project name not speficied" ${PROJECT_NAME}
     BRANCH=$(get_branch required)
+    echo $BRANCH
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     BODY="$(cat <<-EOM
     {

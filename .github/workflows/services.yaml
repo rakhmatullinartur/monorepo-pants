@@ -16,3 +16,9 @@ jobs:
           ~/.cache/pants/lmdb_store
           ~/.cache/pants/named_caches
         key: ${{ runner.os }}-
+    - name: Bootstrap Pants
+      run: |
+        ./pants --version
+    - name: Check BUILD files
+      run: |
+        ./pants tailor --check update-build-files --check

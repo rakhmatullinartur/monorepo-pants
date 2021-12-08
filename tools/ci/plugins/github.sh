@@ -146,7 +146,7 @@ function trigger_build {
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     BODY="$(cat <<-EOM
     {
-        "ref": "${BRANCH},
+        "ref": "${BRANCH}",
         "inputs": {
             "service_name": "${PROJECT_NAME}"
         }
@@ -159,6 +159,8 @@ EOM
         ID='null'
         for JOBS_URL in $(echo "$WFS" | jq -r 'map(.jobs_url) | .[]'); do
             JOBS_URL=${JOBS_URL/$GITHUB_URL/}
+            S=$(get ${JOBS_URL:1})
+            echo $S
             ID=$(get ${JOBS_URL:1} | jq '[ .jobs[] | select(.name == "'${PROJECT_NAME}'") ] | map(.run_id) | .[0]')
             if [[ ${ID} != 'null' ]]; then
                 break

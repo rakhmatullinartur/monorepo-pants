@@ -55,7 +55,6 @@ fi
 
 echo "Following projects need to be built"
 echo -e "$PROJECTS_TO_BUILD"
-
 # Build all modified projects
 echo -e "$PROJECTS_TO_BUILD" | while read PROJECTS; do
     CI_PLUGIN=${CI_PLUGIN} $DIR/build-projects.sh ${PROJECTS}

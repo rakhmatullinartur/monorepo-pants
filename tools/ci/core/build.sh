@@ -44,7 +44,8 @@ echo $DIR
 
 # Collect all modified projects
 #PROJECTS_TO_BUILD=$($DIR/list-projects-to-build.sh $COMMIT_RANGE)
-PROJECTS_TO_BUILD=$(./pants --changed-since=origin/$GITHUB_REF --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
+echo $GITHUB_REF
+PROJECTS_TO_BUILD=$(./pants --changed-since=$GITHUB_REF --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
 
 # If nothing to build inform and exit
 if [[ -z "$PROJECTS_TO_BUILD" ]]; then

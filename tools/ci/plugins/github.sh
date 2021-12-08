@@ -146,7 +146,7 @@ function trigger_build {
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     BODY="$(cat <<-EOM
     {
-#        "event_type": "build-${PROJECT_NAME}",
+        "ref": "${BRANCH},
         "inputs": {
             "service_name": "${PROJECT_NAME}"
         }

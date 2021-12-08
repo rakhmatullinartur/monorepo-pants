@@ -18,8 +18,8 @@ echo $DIR
 : "${CI_PLUGIN:=$DIR/../plugins/${CI_TOOL}.sh}"
 
 # Resolve commit range for current build
-#LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
-#echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
+LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
+echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 #if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
 #    COMMIT_RANGE="origin/master"
 #else

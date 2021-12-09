@@ -45,5 +45,8 @@ jobs:
     steps:
       - name: build
         run: echo ${{ matrix.service }}
+      - name: trigger and wait workflow
+        run: |
+          ./tools/ci/core/build-projects.sh ${{ matrix.service }}
 
 

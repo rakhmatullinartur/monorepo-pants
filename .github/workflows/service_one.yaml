@@ -1,0 +1,12 @@
+name: Build and Deploy service_one
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run: echo "builded successfully"

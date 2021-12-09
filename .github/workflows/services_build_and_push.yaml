@@ -26,6 +26,8 @@ jobs:
       - name: Bootstrap Pants
         run: |
           ./pants --version
+      - name: Set env
+        run: echo "OUTPUT=service_twoo" >> $GITHUB_ENV
       - id: find-services
         env:
           GITHUB_TOKEN: ${{ secrets.token }}

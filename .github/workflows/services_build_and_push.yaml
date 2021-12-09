@@ -42,7 +42,7 @@ jobs:
 
   build_changed_services:
     needs: determine_changed_services
-    if: ${{ needs.determine_changed_services.outputs.changed_services != "{\"service\":[]}"}}
+    if: ${{ needs.determine_changed_services.outputs.changed_services != "\{\"service\":[]}"\}}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}

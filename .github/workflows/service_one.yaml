@@ -26,8 +26,9 @@ jobs:
           ./pants --version
       - name: Package / Run
         run: |
-          ./pants run sevices/service_one::
+          ./pants run services/service_one::
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: deploy to k8s

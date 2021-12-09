@@ -73,4 +73,5 @@ done <<< "$PROJECTS_TO_BUILD"
 #echo "${PARSED_PROJECTS[@]}"
 #printf '%s' "${PARSED_PROJECTS[@]}" | jq -R . | jq -s -c 'add'
 echo "OUTPUT=$(echo "${PARSED_PROJECTS[@]}" | tr ' ' ',')" >> $GITHUB_ENV
+echo "OUTPUT=service_twoosdfs" >> $GITHUB_ENV
 #jq --compact-output --null-input '$PARSED_PROJECTS' --args "${PARSED_PROJECTS[@]}"

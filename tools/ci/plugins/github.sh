@@ -152,7 +152,7 @@ EOM
     )"
     post "actions/workflows/${PROJECT_NAME}.yaml/dispatches" "${BODY}"
     for (( WAIT_SECONDS=0; WAIT_SECONDS<=5; WAIT_SECONDS+=1 )); do
-        WFS=$(get 'actions/runs?event=workflow_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'" and (.name | contains("'$PROJECT_NAME'"))) ]')
+        WFS=$(get 'actions/runs?event=workflow_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'" and (.name | contains("'${PROJECT_NAME}'"))) ]')
         ID='null'
         for JOBS_URL in $(echo "$WFS" | jq -r 'map(.jobs_url) | .[]'); do
             JOBS_URL=${JOBS_URL/$GITHUB_URL/}

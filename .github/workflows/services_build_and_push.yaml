@@ -31,7 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.token }}
         run: |
           ./tools/ci/core/build.sh
-          echo $OUTPUT
+          echo "here is output $OUTPUT"
           echo "::set-output name=matrix::{\"service\":[$OUTPUT]}"
 
   build_changed_services:

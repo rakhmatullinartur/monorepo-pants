@@ -32,7 +32,7 @@ jobs:
         run: |
           ./tools/ci/core/build.sh
           echo $OUTPUT
-#          echo "::set-output name=matrix::{\"service\":[$(tools/ci/core/build.sh)]}"
+          echo "::set-output name=matrix::{\"service\":[$OUTPUT]}"
 
   build_changed_services:
     needs: determine_changed_services

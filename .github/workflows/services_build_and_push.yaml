@@ -29,6 +29,7 @@ jobs:
       - id: find-services
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           ./tools/ci/core/build.sh
           echo "here is output ${{ env.OUTPUT }}"

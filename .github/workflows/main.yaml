@@ -27,6 +27,7 @@ jobs:
       - name: Bootstrap Pants
         run: |
           ./pants --version
+          ./pants test ::
       - name: Run main build runner
         env:
           CI_TOOL: github

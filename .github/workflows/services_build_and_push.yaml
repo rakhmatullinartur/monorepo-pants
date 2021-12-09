@@ -29,13 +29,12 @@ jobs:
       - name: Run bash
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           ./tools/ci/core/build.sh
       - id: find-services
         run: |
           echo "here is output ${{ env.OUTPUT }}"
-          echo "::set-output name=matrix::{\"service\":[$OUTPUT]}"
+          echo "::set-output name=matrix::{\"service\":$OUTPUT}"
 
   build_changed_services:
     needs: determine_changed_services

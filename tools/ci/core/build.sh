@@ -17,8 +17,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 : "${CI_PLUGIN:=$DIR/../plugins/${CI_TOOL}.sh}"
 
 # Resolve commit range for current build
-LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
-#LAST_SUCCESSFUL_COMMIT="d88f95dfe5835daf043d36c21d01c0d754e41538"
+#LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
+LAST_SUCCESSFUL_COMMIT="e6fc14a9763f912024097198a3ea8e3ed10ea9a2"
 echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
     COMMIT_RANGE=$GITHUB_REF
@@ -44,9 +44,9 @@ fi
 
 # Collect all modified projects
 #PROJECTS_TO_BUILD=$($DIR/list-projects-to-build.sh $COMMIT_RANGE)
-PROJECTS_TO_BUILD=$(./pants --changed-since='origin/test_matrix' --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
+PROJECTS_TO_BUILD=$(./pants --changed-since=$LAST_SUCCESSFUL_COMMIT --changed-dependees=transitive list | xargs ./pants filter --target-type=pex_binary)
 
- If nothing to build inform and exit
+# If nothing to build inform and exit
 if [[ -z "$PROJECTS_TO_BUILD" ]]; then
     echo "No projects to build"
     exit 0

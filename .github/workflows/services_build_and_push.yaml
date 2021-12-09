@@ -23,6 +23,8 @@ jobs:
         run: |
           ./pants --version
       - id: find-services
+        env:
+          GITHUB_TOKEN: ${{ secrets.token }}
         run: |
           echo "::set-output name=matrix::{\"service\":[$(tools/ci/core/build.sh)]}"
 

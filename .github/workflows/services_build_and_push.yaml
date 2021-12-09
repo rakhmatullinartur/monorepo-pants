@@ -26,12 +26,14 @@ jobs:
       - name: Bootstrap Pants
         run: |
           ./pants --version
-      - id: find-services
+      - name: Run bash
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
           ./tools/ci/core/build.sh
+      - id: find-services
+        run: |
           echo "here is output ${{ env.OUTPUT }}"
           echo "::set-output name=matrix::{\"service\":[$OUTPUT]}"
 

@@ -45,7 +45,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services) }}
-    if: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services).service != [] }}
+    if: ${{ fromJSON(needs.determine_changed_services.outputs.changed_services).service != '[]' }}
     steps:
       - uses: actions/checkout@v2
       - name: build

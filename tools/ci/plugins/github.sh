@@ -226,7 +226,7 @@ function get_last_successful_commit {
         BRANCH_FILTER='and .head_branch == "'${BRANCH}'"'
     fi
     SELECTOR='.conclusion == "success" '${BRANCH_FILTER}''
-    get 'actions/workflows/main.yaml/runs' | jq -r "[ .workflow_runs[] | select($SELECTOR) ] | max_by(.run_number | tonumber).head_sha"
+    get 'actions/workflows/services_build_and_push.yaml/runs' | jq -r "[ .workflow_runs[] | select($SELECTOR) ] | max_by(.run_number | tonumber).head_sha"
 }
 
 ##

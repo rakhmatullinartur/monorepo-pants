@@ -17,8 +17,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 : "${CI_PLUGIN:=$DIR/../plugins/${CI_TOOL}.sh}"
 
 # Resolve commit range for current build
-#LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
-LAST_SUCCESSFUL_COMMIT="ccd1eedc765db62260f5fcdfa8eaee9cefdac3af"
+LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
+#LAST_SUCCESSFUL_COMMIT="ccd1eedc765db62260f5fcdfa8eaee9cefdac3af"
 echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 #if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
 #    COMMIT_RANGE=$GITHUB_REF

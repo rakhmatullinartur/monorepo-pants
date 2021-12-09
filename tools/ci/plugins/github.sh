@@ -146,7 +146,7 @@ function trigger_build {
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
     BODY="$(cat <<-EOM
     {
-        "ref": "${BRANCH}",
+        "ref": "${BRANCH}"
     }
 EOM
     )"

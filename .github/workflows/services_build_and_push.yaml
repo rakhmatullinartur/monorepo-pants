@@ -26,8 +26,6 @@ jobs:
       - name: Bootstrap Pants
         run: |
           ./pants --version
-      - name: Set env
-        run: echo "OUTPUT=service_twoo" >> $GITHUB_ENV
       - id: find-services
         env:
           GITHUB_TOKEN: ${{ secrets.token }}
@@ -45,10 +43,4 @@ jobs:
       - name: build
         run: echo ${{ matrix.service }}
 
-  deploy:
-    needs: build_changed_services
-    runs-on: ubuntu-latest
-    steps:
-      - name: deploy
-        run: echo deployed!
 

@@ -17,8 +17,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 : "${CI_PLUGIN:=$DIR/../plugins/${CI_TOOL}.sh}"
 
 # Resolve commit range for current build
-LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
-#LAST_SUCCESSFUL_COMMIT="e6fc14a9763f912024097198a3ea8e3ed10ea9a2"
+#LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
+LAST_SUCCESSFUL_COMMIT="ccd1eedc765db62260f5fcdfa8eaee9cefdac3af"
 echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 #if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
 #    COMMIT_RANGE=$GITHUB_REF
@@ -49,12 +49,14 @@ PROJECTS_TO_BUILD=$(./pants --changed-since=$LAST_SUCCESSFUL_COMMIT --changed-de
 # If nothing to build inform and exit
 if [[ -z "$PROJECTS_TO_BUILD" ]]; then
     echo "No projects to build"
-    exit 0
+else
+    echo "Following projects need to be built"
+    echo -e "$PROJECTS_TO_BUILD"
 fi
 
 
-echo "Following projects need to be built"
-echo -e "$PROJECTS_TO_BUILD"
+
+
 # Build all modified projects
 
 PARSED_PROJECTS=()
@@ -70,9 +72,6 @@ do
     PROJECT_NAME=$(echo -e $(basename $PROJECT) | tr ":" " " | cut -d " " -f1)
     PARSED_PROJECTS+=($PROJECT_NAME)
 done <<< "$PROJECTS_TO_BUILD"
-#echo "${PARSED_PROJECTS[@]}"
-#printf '%s' "${PARSED_PROJECTS[@]}" | jq -R . | jq -s -c 'add'
+
 OUTPUT=$(python3 -c 'import sys, json;print(json.dumps(sys.argv[1:]))' "${PARSED_PROJECTS[@]}")
-#echo "::set-env name=OUTPUT::$OUTPUT"
 echo "OUTPUT=$OUTPUT" >> $GITHUB_ENV
-#jq --compact-output --null-input '$PARSED_PROJECTS' --args "${PARSED_PROJECTS[@]}"

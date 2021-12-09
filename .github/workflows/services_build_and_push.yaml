@@ -26,6 +26,9 @@ jobs:
       - name: Bootstrap Pants
         run: |
           ./pants --version
+      - name: Run tests
+        run: |
+          ./pants test ::
       - name: Run bash
         env:
           GITHUB_TOKEN: ${{ secrets.token }}

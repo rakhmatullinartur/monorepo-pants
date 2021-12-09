@@ -147,9 +147,6 @@ function trigger_build {
     BODY="$(cat <<-EOM
     {
         "ref": "${BRANCH}",
-        "inputs": {
-            "service_name": "${PROJECT_NAME}"
-        }
     }
 EOM
     )"

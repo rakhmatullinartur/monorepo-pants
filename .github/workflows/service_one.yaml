@@ -27,4 +27,8 @@ jobs:
       - name: Package / Run
         run: |
           ./pants run sevices/service_one::
-
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy to k8s
+        run: echo deployed!

@@ -20,12 +20,12 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 #LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
 LAST_SUCCESSFUL_COMMIT="e6fc14a9763f912024097198a3ea8e3ed10ea9a2"
 echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
-if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
-    COMMIT_RANGE=$GITHUB_REF
-else
-    COMMIT_RANGE="$(${CI_PLUGIN} hash current)..${LAST_SUCCESSFUL_COMMIT}"
-fi
-echo "Commit range: $COMMIT_RANGE"
+#if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
+#    COMMIT_RANGE=$GITHUB_REF
+#else
+#    COMMIT_RANGE="$(${CI_PLUGIN} hash current)..${LAST_SUCCESSFUL_COMMIT}"
+#fi
+#echo "Commit range: $COMMIT_RANGE"
 
 # Ensure we have all changes from last successful build
 if [[ -f $(git rev-parse --git-dir)/shallow ]]; then
@@ -70,7 +70,7 @@ do
     PROJECT_NAME=$(echo -e $(basename $PROJECT) | tr ":" " " | cut -d " " -f1)
     PARSED_PROJECTS+=($PROJECT_NAME)
 done <<< "$PROJECTS_TO_BUILD"
-#echo "${PARSED_PROJECTS[@]}"
+echo "${PARSED_PROJECTS[@]}"
 #printf '%s' "${PARSED_PROJECTS[@]}" | jq -R . | jq -s -c 'add'
-export OUTPUT=$(echo "${PARSED_PROJECTS[@]}" | tr ' ' ',')
+echo "OUTPUT=$(echo "${PARSED_PROJECTS[@]}" | tr ' ' ',')" >> $GITHUB_ENV
 #jq --compact-output --null-input '$PARSED_PROJECTS' --args "${PARSED_PROJECTS[@]}"

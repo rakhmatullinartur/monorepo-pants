@@ -53,8 +53,8 @@ if [[ -z "$PROJECTS_TO_BUILD" ]]; then
 fi
 
 
-#echo "Following projects need to be built"
-#echo -e "$PROJECTS_TO_BUILD"
+echo "Following projects need to be built"
+echo -e "$PROJECTS_TO_BUILD"
 # Build all modified projects
 
 PARSED_PROJECTS=()
@@ -70,7 +70,7 @@ do
     PROJECT_NAME=$(echo -e $(basename $PROJECT) | tr ":" " " | cut -d " " -f1)
     PARSED_PROJECTS+=($PROJECT_NAME)
 done <<< "$PROJECTS_TO_BUILD"
-echo "${PARSED_PROJECTS[@]}"
+#echo "${PARSED_PROJECTS[@]}"
 #printf '%s' "${PARSED_PROJECTS[@]}" | jq -R . | jq -s -c 'add'
 echo "OUTPUT=$(echo "${PARSED_PROJECTS[@]}" | tr ' ' ',')" >> $GITHUB_ENV
 #jq --compact-output --null-input '$PARSED_PROJECTS' --args "${PARSED_PROJECTS[@]}"

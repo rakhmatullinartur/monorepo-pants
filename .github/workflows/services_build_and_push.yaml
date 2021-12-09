@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "here is output ${{ env.OUTPUT }}"
           echo "set-output name=matrix::{\"service\":$OUTPUT}"
+          echo "::set-output name=matrix::{\"service\":$OUTPUT}"
 
   build_changed_services:
     needs: determine_changed_services

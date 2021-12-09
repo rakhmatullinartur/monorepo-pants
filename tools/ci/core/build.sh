@@ -72,7 +72,7 @@ do
 done <<< "$PROJECTS_TO_BUILD"
 #echo "${PARSED_PROJECTS[@]}"
 #printf '%s' "${PARSED_PROJECTS[@]}" | jq -R . | jq -s -c 'add'
-OUTPUT=$(python3 -c 'import sys, json;print(json.dumps(sys.argv[1:]).replace("\"", "\\\""))' "${PARSED_PROJECTS[@]}")
+OUTPUT=$(python3 -c 'import sys, json;print(json.dumps(sys.argv[1:]))' "${PARSED_PROJECTS[@]}")
 #echo "::set-env name=OUTPUT::$OUTPUT"
 echo "OUTPUT=$OUTPUT" >> $GITHUB_ENV
 #jq --compact-output --null-input '$PARSED_PROJECTS' --args "${PARSED_PROJECTS[@]}"
